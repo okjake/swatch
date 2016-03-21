@@ -69,16 +69,16 @@ func main() {
 	centers := make([]color.RGBA, count)
 
 	for id, obs := range clusters {
-		var r, g, b float64
+		var r, g, b uint
 
 		for i := 0; i < len(obs); i++ {
-			r += obs[i][0]
-			g += obs[i][1]
-			b += obs[i][2]
+			r += uint(obs[i][0])
+			g += uint(obs[i][1])
+			b += uint(obs[i][2])
 		}
 
-		l := uint8(len(obs))
-		centers[id] = color.RGBA{uint8(r) / l, uint8(g) / l, uint8(b) / l, 255}
+		l := uint(len(obs))
+		centers[id] = color.RGBA{uint8(r / l), uint8(g / l), uint8(b / l), 255}
 	}
 
 	fmt.Println(centers)
