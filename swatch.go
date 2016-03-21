@@ -79,5 +79,14 @@ func main() {
 		centers[id] = color.RGBA{uint8(r / l), uint8(g / l), uint8(b / l), 255}
 	}
 
+	// insertion sort
+	for i := 0; i < len(centers); i++ {
+		j := i
+		for j > 0 && len(clusters[j-1]) > len(clusters[j]) {
+			centers[j], centers[j-1] = centers[j-1], centers[j]
+			j = j - 1
+		}
+	}
+
 	fmt.Println(centers)
 }
