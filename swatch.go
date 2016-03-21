@@ -34,15 +34,13 @@ func main() {
 	// iterate the pixels
 	bounds := img.Bounds()
 	pxData := make([][]float64, bounds.Max.X*bounds.Max.Y)
-
-	for i := 0; i <= bounds.Max.X; i++ {
-		for j := 0; j <= bounds.Max.Y; j++ {
+	for i := 0; i < bounds.Max.X; i++ {
+		for j := 0; j < bounds.Max.Y; j++ {
 			c := make([]float64, 3)
-			px := img.At(i, j)
-			r, g, b, _ := px.RGBA()
+			pxl := img.At(i, j)
+			r, g, b, _ := pxl.RGBA()
 			c[0], c[1], c[2] = float64(r), float64(g), float64(b)
-			// todo
-			idx := i*(bounds.Max.Y-1) + j
+			idx := i*bounds.Max.Y + j
 			pxData[idx] = c
 		}
 	}
@@ -57,9 +55,9 @@ func main() {
 	// map pixels to clusters
 	clusters := make([][][]float64, count)
 
-	for i := 0; i <= bounds.Max.X; i++ {
-		for j := 0; j <= bounds.Max.Y; j++ {
-			idx := i*(bounds.Max.Y-1) + j
+	for i := 0; i < bounds.Max.X; i++ {
+		for j := 0; j < bounds.Max.Y; j++ {
+			idx := i*bounds.Max.Y + j
 			id := labels[idx]
 			clusters[id] = append(clusters[id], pxData[idx])
 		}
